@@ -15,7 +15,11 @@ class App extends Component {
   }
 
   onInputChange = (event) => {
-    console.log(event);
+    console.log(event.target.value);
+  };
+
+  onSubmit = () => {
+    console.log("click");
   };
   render() {
     return (
@@ -23,8 +27,10 @@ class App extends Component {
         <Navigation />
         <Logo />
         <Rank />
-        <ImageLinkForm onInputChange={this.onInputChange} />
-        {/* <FaceRecognition /> */}
+        <ImageLinkForm
+          onInputChange={this.onInputChange}
+          onButtonSubmit={this.onButtonSubmit}
+        />
       </div>
     );
   }
