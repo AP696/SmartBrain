@@ -6,7 +6,7 @@ import Rank from "./Components/Rank/Rank";
 import { ConstructorFragment } from "ethers/lib/utils";
 import { Component, useState } from "react";
 
-class App extends Component() {
+class App extends Component {
   constructor() {
     super();
     this.state = {
