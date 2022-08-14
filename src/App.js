@@ -17,20 +17,25 @@ class App extends Component {
     super();
     this.state = {
       input: "",
+      imageUrl: "",
+      box: {},
     };
   }
 
+  calculateFaceLocation = (data) => {
+    // response.outputs[0].data.regions[0].region_info.bounding_box;
+  };
+
   onInputChange = (event) => {
-    console.log(event.target.value);
+    this.setState({ input: event.target.value });
   };
 
   onButtonSubmit = () => {
-    console.log("click");
+    this.setState({ imageUrl: this.state.input });
     app.models
       .predict("53e1df302c079b3db8a0a36033ed2d15", this.state.input)
-      .then((response) => {
-        console.log(response);
-      });
+      .then((response) => this.calculateFaceLocation(response))
+      .catch((err) => console.log(err));
   };
   render() {
     return (
@@ -42,7 +47,7 @@ class App extends Component {
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceRecognition />
+        <FaceRecognition imageUrl={this.state.imageUrl} />
       </div>
     );
   }
