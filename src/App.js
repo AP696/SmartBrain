@@ -9,6 +9,7 @@ import Clarifai from "clarifai";
 import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
 
+//This is the API key
 const app = new Clarifai.App({
   apiKey: "97eb9a5f7d784f8c967e71531690675f",
 });
