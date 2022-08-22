@@ -17,20 +17,22 @@ class Signin extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    fetch('http://localhost:3000/signin', {
-      method: 'post',
-      headers: {'Content-Type': 'application/json'},
+    fetch("http://localhost:3000/signin", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: this.state.signInEmail,
-        password: this.state.signInPassword
-      })
+        password: this.state.signInPassword,
+      }),
     })
-    .then(response => response.JSON())
-    .then(data => {
-      if (data === 'success') {
-        this.props.onRouteChange("home");
-      }
-    })
+      .then((response) => response.JSON())
+      .then((user) => {
+        if (user.id) {
+          //doesthis user exist?Did we recieve a user with a prop of id?
+          this.props.loadUser(user);
+          this.props.onRouteChange("home");
+        }
+      });
     this.props.onRouteChange("home");
   };
   render() {
