@@ -5,14 +5,9 @@ import Logo from "./Components/Navigation/Logo/Logo";
 import Rank from "./Components/Rank/Rank";
 import { Component, useState } from "react";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition";
-import Clarifai from "clarifai";
+
 import Signin from "./Components/Signin/Signin";
 import Register from "./Components/Register/Register";
-
-//This is the API key
-const app = new Clarifai.App({
-  apiKey: "97eb9a5f7d784f8c967e71531690675f",
-});
 
 const initialState = {
   input: "",
@@ -66,8 +61,15 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    app.models
-      .predict("53e1df302c079b3db8a0a36033ed2d15", this.state.input)
+    app.models.predict("53e1df302c079b3db8a0a36033ed2d15", this.state.input);
+    fetch("http://localhost:3000/imageurl", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input,
+      }),
+    })
+      .then((response) => response.json())
       .then((response) => {
         if (response) {
           fetch("http://localhost:3000/image", {
